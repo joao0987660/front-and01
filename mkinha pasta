@@ -557,3 +557,592 @@
 
 </body>
 </html>
+
+
+
+<!-- Seção de Pagamentos -->
+<section class="pagamentos-container">
+    <h2>Formas de Pagamento Aceitas</h2>
+    
+    <div class="pagamentos-grid">
+        <!-- Pix -->
+        <div class="pagamento-item">
+            <span class="badge-destaque">MAIS USADO</span>
+            <i class="fas fa-pix" style="color: #32bcad;"></i>
+            <h3>Pix</h3>
+            <p>Confirmação na hora e 5% de desconto.</p>
+        </div>
+
+        <!-- Cartões -->
+        <div class="pagamento-item">
+            <i class="fas fa-credit-card"></i>
+            <h3>Cartão de Crédito</h3>
+            <p>Em até 12x (Visa, Master, Elo, Amex).</p>
+        </div>
+
+        <!-- Boleto -->
+        <div class="pagamento-item">
+            <i class="fas fa-barcode"></i>
+            <h3>Boleto Bancário</h3>
+            <p>Pague em qualquer banco ou lotérica.</p>
+        </div>
+
+        <!-- Carteiras Digitais -->
+        <div class="pagamento-item">
+            <i class="fab fa-apple-pay"></i>
+            <h3>Carteiras Digitais</h3>
+            <p>Apple Pay, Google Pay e Samsung Pay.</p>
+        </div>
+        
+        <!-- Cripto -->
+        <div class="pagamento-item">
+            <i class="fab fa-bitcoin"></i>
+            <h3>Criptomoedas</h3>
+            <p>Aceitamos Bitcoin e Ethereum.</p>
+        </div>
+
+        <!-- WhatsApp / Link -->
+        <div class="pagamento-item">
+            <i class="fab fa-whatsapp"></i>
+            <h3>Link via WhatsApp</h3>
+            <p>Peça seu link e pague pelo chat.</p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .pagamentos-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+    }
+    .pagamentos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+    }
+    .pagamento-item {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 25px;
+        transition: 0.3s;
+        background: #fff;
+        position: relative;
+    }
+    .pagamento-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        border-color: #2563eb;
+    }
+    .pagamento-item i {
+        font-size: 40px;
+        margin-bottom: 15px;
+        color: #2563eb;
+    }
+    .pagamento-item h3 { font-size: 18px; margin: 10px 0; }
+    .pagamento-item p { font-size: 14px; color: #666; }
+    .badge-destaque {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #dcfce7;
+        color: #166534;
+        font-size: 10px;
+        font-weight: bold;
+        padding: 4px 8px;
+        border-radius: 20px;
+    }
+</style>
+
+<!-- Certifique-se de ter o FontAwesome para os ícones funcionarem -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+<!-- Início da Área de Checkout Pix -->
+<div id="checkout-pix" style="max-width: 400px; margin: 20px auto; padding: 25px; border: 2px solid #e2e8f0; border-radius: 20px; background: #ffffff; font-family: sans-serif; text-align: center; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
+    
+    <h3 style="color: #1a202c; margin-bottom: 5px;">Finalize seu Pagamento</h3>
+    <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">Escaneie o QR Code ou copie o código abaixo</p>
+
+    <!-- QR Code Gerado Dinamicamente (Exemplo) -->
+    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; display: inline-block; margin-bottom: 20px;">
+        <img src="https://qrserver.com" 
+             alt="QR Code Pix" 
+             style="display: block; width: 200px; height: 200px;">
+    </div>
+
+    <!-- Pix Copia e Cola -->
+    <div style="text-align: left; margin-top: 10px;">
+        <label style="font-size: 12px; font-weight: bold; color: #475569; display: block; margin-bottom: 5px;">PIX COPIA E COLA:</label>
+        <div style="display: flex; gap: 5px;">
+            <input type="text" id="pixCode" readonly 
+                   value="00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3-a456-426614174000520400005303986540510.005802BR5913SUA_LOJA6008CURITIBA62070503***6304E12A"
+                   style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; color: #334155; background: #f1f5f9;">
+            
+            <button onclick="copyPix()" style="background: #32bcad; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                Copiar
+            </button>
+        </div>
+    </div>
+
+    <p style="margin-top: 20px; font-size: 12px; color: #94a3b8;">
+        <i class="fas fa-shield-alt"></i> Pagamento seguro via Pix
+    </p>
+</div>
+
+<script>
+function copyPix() {
+    var copyText = document.getElementById("pixCode");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // Para dispositivos móveis
+    navigator.clipboard.writeText(copyText.value);
+    
+    alert("Código Pix copiado para a área de transferência!");
+}
+</script>
+<!-- Fim da Área de Checkout Pix -->
+
+
+
+
+<!-- Seção de Comentários e Avaliações -->
+<section class="comentarios-container">
+    <h2>O que nossos clientes dizem</h2>
+    
+    <div class="comentarios-grid">
+        <!-- Comentário 1 -->
+        <div class="comentario-card">
+            <div class="estrelas">★★★★★</div>
+            <p>"Site muito fácil de usar! Fiz o pagamento pelo Pix e o acesso foi liberado na hora. Recomendo muito!"</p>
+            <div class="autor">
+                <strong>Lucas Almeida</strong>
+                <span>Cliente Verificado ✅</span>
+            </div>
+        </div>
+
+        <!-- Comentário 2 -->
+        <div class="comentario-card">
+            <div class="estrelas">★★★★★</div>
+            <p>"Tive uma dúvida sobre o parcelamento no cartão, chamei no WhatsApp e me atenderam super rápido. Nota 10!"</p>
+            <div class="autor">
+                <strong>Mariana Silva</strong>
+                <span>Cliente Verificado ✅</span>
+            </div>
+        </div>
+
+        <!-- Comentário 3 -->
+        <div class="comentario-card">
+            <div class="estrelas">★★★★☆</div>
+            <p>"Seguro e confiável. O QR Code do Pix funcionou de primeira e o design do site é bem profissional."</p>
+            <div class="autor">
+                <strong>Ricardo Gomes</strong>
+                <span>Cliente Verificado ✅</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão para Deixar Comentário -->
+    <div style="margin-top: 30px;">
+        <button onclick="abrirFormulario()" style="background: #2563eb; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold;">
+            Deixar minha avaliação
+        </button>
+    </div>
+</section>
+
+<style>
+    .comentarios-container {
+        max-width: 1100px;
+        margin: 60px auto;
+        padding: 20px;
+        text-align: center;
+        font-family: 'Segoe UI', sans-serif;
+    }
+    .comentarios-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-top: 40px;
+    }
+    .comentario-card {
+        background: #f8fafc;
+        padding: 30px;
+        border-radius: 15px;
+        border-bottom: 4px solid #2563eb;
+        text-align: left;
+        transition: 0.3s;
+    }
+    .comentario-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+    .estrelas {
+        color: #fbbf24;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    .comentario-card p {
+        color: #475569;
+        font-style: italic;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    .autor strong {
+        display: block;
+        color: #1e293b;
+        font-size: 16px;
+    }
+    .autor span {
+        color: #10b981;
+        font-size: 12px;
+        font-weight: bold;
+    }
+</style>
+
+<script>
+function abrirFormulario() {
+    let nome = prompt("Qual seu nome?");
+    if(nome) {
+        alert("Obrigado " + nome + "! Sua avaliação foi enviada para moderação.");
+    }
+}
+</script>
+<!-- Seção de Depoimentos Profissional -->
+<section class="testemunhos-section">
+    <h2>O que nossos clientes dizem</h2>
+    
+    <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+            <!-- Os 30 comentários entrarão aqui via JavaScript -->
+        </div>
+    </div>
+
+    <!-- Indicadores (Pontinhos) -->
+    <div class="carousel-dots" id="carouselDots"></div>
+</section>
+
+<style>
+    :root { --primary: #2563eb; --bg-card: #ffffff; }
+    
+    .testemunhos-section { padding: 60px 20px; background: #f1f5f9; text-align: center; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+    .testemunhos-section h2 { margin-bottom: 40px; color: #1e293b; font-size: 28px; }
+
+    .carousel-container { max-width: 1000px; margin: 0 auto; position: relative; cursor: grab; }
+    
+    .carousel-track { display: flex; transition: transform 0.5s ease-out; gap: 20px; }
+
+    .depoimento-card { 
+        min-width: calc(33.333% - 20px); 
+        background: var(--bg-card); 
+        padding: 30px; 
+        border-radius: 16px; 
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        text-align: left;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) { .depoimento-card { min-width: calc(100% - 20px); } }
+
+    .estrelas { color: #fbbf24; margin-bottom: 15px; font-size: 18px; }
+    .texto-depo { color: #475569; font-size: 15px; line-height: 1.6; height: 80px; font-style: italic; }
+    .autor-info { margin-top: 20px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
+    .autor-nome { display: block; font-weight: bold; color: #1e293b; }
+    .verificado { color: #10b981; font-size: 12px; font-weight: bold; }
+
+    .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 30px; }
+    .dot { width: 10px; height: 10px; background: #cbd5e1; border-radius: 50%; cursor: pointer; transition: 0.3s; }
+    .dot.active { background: var(--primary); transform: scale(1.2); }
+</style>
+
+<script>
+const depoimentos = [
+    {nome: "Pedro Santos", texto: "Fiz o Pix e em menos de 10 segundos o pedido foi confirmado. Sistema top!"},
+    {nome: "Carla Menezes", texto: "Adorei o desconto para pagamento no Pix. Site muito honesto."},
+    {nome: "Bruno Oliveira", texto: "O QR Code gerou na hora, sem erro. O melhor checkout que já usei."},
+    {nome: "Fernanda Lima", texto: "Comprei pelo Pix Copia e Cola pelo celular e foi super prático."},
+    {nome: "Tiago Souza", texto: "Estava com medo de pagar no Pix, mas o suporte me passou confiança e deu tudo certo."},
+    {nome: "Juliana Costa", texto: "Site rápido e o pagamento instantâneo facilita demais a vida."},
+    {nome: "Marcos Paulo", texto: "Paguei no Pix no domingo e a confirmação foi imediata. Impressionante."},
+    {nome: "Beatriz Rocha", texto: "O sistema de Pix deles é muito seguro. Recomendo!"},
+    {nome: "Lucas Viana", texto: "Tudo automático. Pagou, caiu, liberou. Sem burocracia."},
+    {nome: "Aline Dias", texto: "Interface do Pix muito limpa e fácil de entender."},
+    {nome: "Rodrigo Alves", texto: "Parcelamento em 12x que cabe no bolso. Site nota 10."},
+    {nome: "Sônia Maria", texto: "Usei meu cartão virtual e passou de primeira. Ambiente bem seguro."},
+    {nome: "Felipe Neto", texto: "Aceita todas as bandeiras. Usei meu Elo e foi super tranquilo."},
+    {nome: "Patrícia Gomes", texto: "O site tem cadeado de segurança, comprei no crédito sem medo."},
+    {nome: "Gabriel Faria", texto: "Melhor taxa de parcelamento que encontrei nesse nicho."},
+    {nome: "Vanessa Luz", texto: "Aprovação do cartão de crédito foi instantânea. Site nota mil."},
+    {nome: "Igor Batista", texto: "Gostei que aceitam Apple Pay, paguei só aproximando o celular."},
+    {nome: "Cláudia Leite", texto: "Segurança total nos dados. Já sou cliente fiel."},
+    {nome: "Henrique Paz", texto: "Facilidade incrível para cadastrar o cartão e finalizar a compra."},
+    {nome: "Sabrina Sato", texto: "Site profissional. Dá pra ver que investiram em segurança de dados."},
+    {nome: "Renato Silva", texto: "O site é lindo e muito fácil de navegar. Parabéns aos desenvolvedores."},
+    {nome: "Larissa Manoela", texto: "Dúvida no chat resolvida em 2 minutos. Atendimento nota 1000!"},
+    {nome: "Jorge Aragão", texto: "Design limpo e direto ao ponto. Não te faz perder tempo."},
+    {nome: "Mônica Sousa", texto: "Já é minha terceira compra aqui. Nunca tive problemas."},
+    {nome: "Eduardo Costa", texto: "O melhor site do segmento, sem dúvidas. Preço e facilidade."},
+    {nome: "Talita Rebouças", texto: "Comprei pelo link do WhatsApp e foi muito prático também."},
+    {nome: "André Marques", texto: "Tive um problema com meu banco e o suporte foi super paciente."},
+    {nome: "Daniela Mercury", texto: "Site leve, carrega rápido no 4G. Facilita muito a compra."},
+    {nome: "Caio Castro", texto: "Transparência total em cada etapa da compra. Virei fã."},
+    {nome: "Viviane Araújo", texto: "Simplesmente o melhor checkout. Rápido, seguro e bonito."}
+];
+
+const track = document.getElementById('carouselTrack');
+const dotsContainer = document.getElementById('carouselDots');
+
+// Gerar Cards
+depoimentos.forEach((d, i) => {
+    track.innerHTML += `
+        <div class="depoimento-card">
+            <div class="estrelas">★★★★★</div>
+            <p class="texto-depo">"${d.texto}"</p>
+            <div class="autor-info">
+                <span class="autor-nome">${d.nome}</span>
+                <span class="verificado">Comprador Verificado ✅</span>
+            </div>
+        </div>
+    `;
+});
+
+// Lógica de Movimento Automático
+let index = 0;
+function moveCarousel() {
+    index++;
+    if (index > depoimentos.length - 3) index = 0;
+    const width = document.querySelector('.depoimento-card').offsetWidth + 20;
+    track.style.transform = `translateX(-${index * width}px)`;
+}
+
+setInterval(moveCarousel, 4000); // Muda a cada 4 segundos
+</script>
+<!-- Seção de Depoimentos Profissional -->
+<section class="testemunhos-section">
+    <h2>O que nossos clientes dizem</h2>
+    
+    <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+            <!-- Os 30 comentários entrarão aqui via JavaScript -->
+        </div>
+    </div>
+
+    <!-- Indicadores (Pontinhos) -->
+    <div class="carousel-dots" id="carouselDots"></div>
+</section>
+
+<style>
+    :root { --primary: #2563eb; --bg-card: #ffffff; }
+    
+    .testemunhos-section { padding: 60px 20px; background: #f1f5f9; text-align: center; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+    .testemunhos-section h2 { margin-bottom: 40px; color: #1e293b; font-size: 28px; }
+
+    .carousel-container { max-width: 1000px; margin: 0 auto; position: relative; cursor: grab; }
+    
+    .carousel-track { display: flex; transition: transform 0.5s ease-out; gap: 20px; }
+
+    .depoimento-card { 
+        min-width: calc(33.333% - 20px); 
+        background: var(--bg-card); 
+        padding: 30px; 
+        border-radius: 16px; 
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        text-align: left;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) { .depoimento-card { min-width: calc(100% - 20px); } }
+
+    .estrelas { color: #fbbf24; margin-bottom: 15px; font-size: 18px; }
+    .texto-depo { color: #475569; font-size: 15px; line-height: 1.6; height: 80px; font-style: italic; }
+    .autor-info { margin-top: 20px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
+    .autor-nome { display: block; font-weight: bold; color: #1e293b; }
+    .verificado { color: #10b981; font-size: 12px; font-weight: bold; }
+
+    .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 30px; }
+    .dot { width: 10px; height: 10px; background: #cbd5e1; border-radius: 50%; cursor: pointer; transition: 0.3s; }
+    .dot.active { background: var(--primary); transform: scale(1.2); }
+</style>
+
+<script>
+const depoimentos = [
+    {nome: "Pedro Santos", texto: "Fiz o Pix e em menos de 10 segundos o pedido foi confirmado. Sistema top!"},
+    {nome: "Carla Menezes", texto: "Adorei o desconto para pagamento no Pix. Site muito honesto."},
+    {nome: "Bruno Oliveira", texto: "O QR Code gerou na hora, sem erro. O melhor checkout que já usei."},
+    {nome: "Fernanda Lima", texto: "Comprei pelo Pix Copia e Cola pelo celular e foi super prático."},
+    {nome: "Tiago Souza", texto: "Estava com medo de pagar no Pix, mas o suporte me passou confiança e deu tudo certo."},
+    {nome: "Juliana Costa", texto: "Site rápido e o pagamento instantâneo facilita demais a vida."},
+    {nome: "Marcos Paulo", texto: "Paguei no Pix no domingo e a confirmação foi imediata. Impressionante."},
+    {nome: "Beatriz Rocha", texto: "O sistema de Pix deles é muito seguro. Recomendo!"},
+    {nome: "Lucas Viana", texto: "Tudo automático. Pagou, caiu, liberou. Sem burocracia."},
+    {nome: "Aline Dias", texto: "Interface do Pix muito limpa e fácil de entender."},
+    {nome: "Rodrigo Alves", texto: "Parcelamento em 12x que cabe no bolso. Site nota 10."},
+    {nome: "Sônia Maria", texto: "Usei meu cartão virtual e passou de primeira. Ambiente bem seguro."},
+    {nome: "Felipe Neto", texto: "Aceita todas as bandeiras. Usei meu Elo e foi super tranquilo."},
+    {nome: "Patrícia Gomes", texto: "O site tem cadeado de segurança, comprei no crédito sem medo."},
+    {nome: "Gabriel Faria", texto: "Melhor taxa de parcelamento que encontrei nesse nicho."},
+    {nome: "Vanessa Luz", texto: "Aprovação do cartão de crédito foi instantânea. Site nota mil."},
+    {nome: "Igor Batista", texto: "Gostei que aceitam Apple Pay, paguei só aproximando o celular."},
+    {nome: "Cláudia Leite", texto: "Segurança total nos dados. Já sou cliente fiel."},
+    {nome: "Henrique Paz", texto: "Facilidade incrível para cadastrar o cartão e finalizar a compra."},
+    {nome: "Sabrina Sato", texto: "Site profissional. Dá pra ver que investiram em segurança de dados."},
+    {nome: "Renato Silva", texto: "O site é lindo e muito fácil de navegar. Parabéns aos desenvolvedores."},
+    {nome: "Larissa Manoela", texto: "Dúvida no chat resolvida em 2 minutos. Atendimento nota 1000!"},
+    {nome: "Jorge Aragão", texto: "Design limpo e direto ao ponto. Não te faz perder tempo."},
+    {nome: "Mônica Sousa", texto: "Já é minha terceira compra aqui. Nunca tive problemas."},
+    {nome: "Eduardo Costa", texto: "O melhor site do segmento, sem dúvidas. Preço e facilidade."},
+    {nome: "Talita Rebouças", texto: "Comprei pelo link do WhatsApp e foi muito prático também."},
+    {nome: "André Marques", texto: "Tive um problema com meu banco e o suporte foi super paciente."},
+    {nome: "Daniela Mercury", texto: "Site leve, carrega rápido no 4G. Facilita muito a compra."},
+    {nome: "Caio Castro", texto: "Transparência total em cada etapa da compra. Virei fã."},
+    {nome: "Viviane Araújo", texto: "Simplesmente o melhor checkout. Rápido, seguro e bonito."}
+];
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Nova Seção de Jogos -->
+<section class="jogos-container">
+    <div class="jogos-grid">
+        <!-- Jogo 1 -->
+        <div class="jogo-card">
+            <img src="https://igdb.com" alt="Elden Ring">
+            <div class="jogo-info">
+                <h3>Elden Ring</h3>
+                <span class="categoria">RPG / Ação</span>
+                <button class="btn-comprar">Comprar Agora</button>
+            </div>
+        </div>
+
+        <!-- Jogo 2 -->
+        <div class="jogo-card">
+            <img src="https://igdb.com" alt="Cyberpunk 2077">
+            <div class="jogo-info">
+                <h3>Cyberpunk 2077</h3>
+                <span class="categoria">RPG / Mundo Aberto</span>
+                <button class="btn-comprar">Comprar Agora</button>
+            </div>
+        </div>
+
+        <!-- Jogo 3 -->
+        <div class="jogo-card">
+            <img src="https://igdb.com" alt="Spider-Man 2">
+            <div class="jogo-info">
+                <h3>Spider-Man 2</h3>
+                <span class="categoria">Aventura</span>
+                <button class="btn-comprar">Comprar Agora</button>
+            </div>
+        </div>
+
+        <!-- Jogo 4 -->
+        <div class="jogo-card">
+            <img src="https://igdb.com" alt="Resident Evil 4 Remake">
+            <div class="jogo-info">
+                <h3>Resident Evil 4</h3>
+                <span class="categoria">Terror / Ação</span>
+                <button class="btn-comprar">Comprar Agora</button>
+            </div>
+        </div>
+
+        <!-- Jogo 5 -->
+        <div class="jogo-card">
+            <img src="https://igdb.com" alt="God of War Ragnarok">
+            <div class="jogo-info">
+                <h3>God of War Ragnarök</h3>
+                <span class="categoria">Ação / Mitologia</span>
+                <button class="btn-comprar">Comprar Agora</button>
+            </div>
+        </div>
+
+        <!-- Jogo 6 -->
+        <div class="jogo-card">
+            <img src="https://igdb.com" alt="Baldur's Gate 3">
+            <div class="jogo-info">
+                <h3>Baldur's Gate 3</h3>
+                <span class="categoria">RPG Tático</span>
+                <button class="btn-comprar">Comprar Agora</button>
+            </div>
+        </div>
+
+        <!-- Jogo 7 -->
+        <div class="jogo-card">
+            <img src="https://igdb.com" alt="Hogwarts Legacy">
+            <div class="jogo-info">
+                <h3>Hogwarts Legacy</h3>
+                <span class="categoria">Fantasia / Mundo Aberto</span>
+                <button class="btn-comprar">Comprar Agora</button>
+            </div>
+        </div>
+
+        <!-- Jogo 8 -->
+        <div class="jogo-card">
+            <img src="https://igdb.com" alt="FIFA 24 / FC 24">
+            <div class="jogo-info">
+                <h3>EA Sports FC 24</h3>
+                <span class="categoria">Esportes</span>
+                <button class="btn-comprar">Comprar Agora</button>
+            </div>
+        </div>
+
+        <!-- Jogo 9 -->
+        <div class="jogo-card">
+            <img src="https://igdb.com" alt="Starfield">
+            <div class="jogo-info">
+                <h3>Starfield</h3>
+                <span class="categoria">Espacial / RPG</span>
+                <button class="btn-comprar">Comprar Agora</button>
+            </div>
+        </div>
+
+        <!-- Jogo 10 -->
+        <div class="jogo-card">
+            <img src="https://igdb.com" alt="Mortal Kombat 1">
+            <div class="jogo-info">
+                <h3>Mortal Kombat 1</h3>
+                <span class="categoria">Luta</span>
+                <button class="btn-comprar">Comprar Agora</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .jogos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 25px;
+        padding: 40px;
+    }
+    .jogo-card {
+        background: #1e293b;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .jogo-card:hover { transform: scale(1.05); }
+    .jogo-card img { width: 100%; height: 280px; object-fit: cover; }
+    .jogo-info { padding: 15px; text-align: center; }
+    .jogo-info h3 { color: #fff; font-size: 16px; margin: 5px 0; }
+    .categoria { color: #32bcad; font-size: 12px; font-weight: bold; display: block; margin-bottom: 10px; }
+    .btn-comprar {
+        background: #2563eb;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        font-weight: bold;
+    }
+</style>
