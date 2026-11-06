@@ -1,25 +1,147 @@
-Front-family:arial, sans-serif;
-background: linear-gradient(to right, #ed749e):
-display: flex;
-justify-content:center;
-align-items:center;
-height:100px;
-margin:0;
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cassino Demo - Modo Gratuito</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 350px;
+            text-align: center;
+        }
+        h2 { color: #38bdf8; margin-bottom: 10px; }
+        .badge {
+            background-color: #eab308;
+            color: #000;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .balance-box {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        #balance { color: #22c55e; font-weight: bold; }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label { display: block; font-size: 14px; margin-bottom: 5px; color: #cbd5e1; }
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: white;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover { background-color: #1d4ed8; }
+        #result {
+            margin-top: 20px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
 
-profile-card {
+    <div class="container">
+        <h2>Crash Demo</h2>
+        <span class="badge">MODO DEMONSTRAÇÃO (Fichas Virtuais)</span>
 
-background:
-#fff;
-padding: 20px;
-border-radius:12px;
-text-align:center;
-box-shadow:0 4px 10px rgba (0,0,0,0.2);
-300px
-18 }
+        <div class="balance-box">
+            Saldo Demo: <span id="balance">R$ 1.000,00</span>
+        </div>
 
-profile-img
+        <div class="input-group">
+            <label for="betAmount">Valor da Aposta (R$):</label>
+            <input type="number" id="betAmount" value="10" min="1" max="1000">
+        </div>
 
-border-radius: 50%;
-width: 120px;
-height: 120px;
-margin-bottom: 15px;
+        <button onclick="jogar()">Apostar</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Saldo inicial do modo demo
+        let saldoDemo = 1000.00;
+
+        function atualizarTela() {
+            document.getElementById('balance').innerText = `R$ ${saldoDemo.toFixed(2).replace('.', ',')}`;
+        }
+
+        function jogar() {
+            const inputBet = document.getElementById('betAmount');
+            const resultDiv = document.getElementById('result');
+            let valorAposta = parseFloat(inputBet.value);
+
+            // Validações básicas
+            if (isNaN(valorAposta) || valorAposta <= 0) {
+                resultDiv.style.color = '#ef4444';
+                resultDiv.innerText = "Insira um valor de aposta válido!";
+                return;
+            }
+
+            if (valorAposta > saldoDemo) {
+                resultDiv.style.color = '#ef4444';
+                resultDiv.innerText = "Saldo insuficiente no modo demo!";
+                return;
+            }
+
+            // Desconta o valor da aposta
+            saldoDemo -= valorAposta;
+
+            // Simula um multiplicador aleatório (ex: de 0x a 2.5x)
+            // 40% de chance de perder tudo (0x), 60% de chance de ganhar
+            let multiplicador = Math.random() < 0.4 ? 0 : (Math.random() * 2 + 0.5); 
+            let retorno = valorAposta * multiplicador;
+
+            if (retorno > 0) {
+                saldoDemo += retorno;
+                resultDiv.style.color = '#22c55e';
+                resultDiv.innerText = `🎉 Você ganhou! Multiplicador: ${multiplicador.toFixed(2)}x (Lucro: R$ ${(retorno - valorAposta).toFixed(2)})`;
+            } else {
+                resultDiv.style.color = '#ef4444';
+                resultDiv.innerText = `💥 Crash! Você perdeu R$ ${valorAposta.toFixed(2)}`;
+            }
+
+            atualizarTela();
+        }
+    </script>
+
+</body>
+</html>
